@@ -1,8 +1,8 @@
 import { randomHole, showBot, hideBot } from "./board.js";
 import rankFor from "./rank.js"
 
-const POP_DELAYS = { slow: 1100, normal: 850, fast: 600};
-const ROUND_SECONDS = 30;
+const POP_DELAYS = { slow: 1100, normal: 850, fast: 600, turbo: 300};
+const ROUND_SECONDS = 15;
 
 export default class Game {
     constructor(holes, ui) {

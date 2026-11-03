@@ -1,11 +1,11 @@
 export default function rankFor(score) {
     if (score >= 25) {
-        return "Legendary bopper";
+        return "holy clicking";
     } else if (score >= 15) {
-        return "Quick hands";
+        return "type shi";
     } else if (score >= 5) {
-        return "Nice warm-up";
+        return "son";
     } else {
-        return "MISAbot got away this time";
+        return "oh nahhh";
     }
 }
