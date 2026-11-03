@@ -9,6 +9,8 @@ const startButton = document.querySelector("#start-button");
 const scoreDisplay = document.querySelector("#score");
 const timeDisplay = document.querySelector("#time");
 const message = document.querySelector("#message");
+const board = document.querySelector("#board");
+const hammer = document.querySelector("#hammer");
 
 function createHole(key) {
     const hole = document.createElement("div");
@@ -66,7 +68,7 @@ function rankFor(score) {
     }
 }
 
-const holes = createBoard(document.querySelector("#board"));
+const holes = createBoard(board);
 
 let playerName = "Player";
 let score = 0;
@@ -147,13 +149,37 @@ function bop(hole) {
     updateStats();
 }
 
-function handleHoleClick(event) {
-    bop(event.currentTarget);
-}
+board.addEventListener("mousedown", (event) => {
+    if (event.button !== 0) {
+        return;
+    }
+    hammer.classList.add("swing");
+    const hole = event.target.closest(".hole");
+    if (hole !== null) {
+        bop(hole);
+    }
+});
 
-for (const hole of holes) {
-    hole.addEventListener("click", handleHoleClick);
-}
+document.addEventListener("mouseup", () => {
+    hammer.classList.remove("swing");
+});
+
+board.addEventListener("mouseenter", () => {
+    hammer.classList.add("visible");
+});
+
+board.addEventListener("mouseleave", () => {
+    hammer.classList.remove("visible");
+});
+
+board.addEventListener("mousemove", (event) => {
+    hammer.style.left = `${event.clientX}px`;
+    hammer.style.top = `${event.clientY}px`;
+});
+
+board.addEventListener("contextmenu", (event) => {
+    event.preventDefault();
+});
 
 startButton.addEventListener("click", startGame);
 
