@@ -56,6 +56,15 @@ function hideBot(hole) {
     hole.classList.remove("up");
 }
 
+function findHole(key) {
+    for (const hole of holes) {
+        if (hole.dataset.key === key) {
+            return hole;
+        }
+    }
+    return null;
+}
+
 function rankFor(score) {
     if (score >= 25) {
         return "Legendary bopper";
@@ -183,3 +192,29 @@ board.addEventListener("contextmenu", (event) => {
 
 startButton.addEventListener("click", startGame);
 
+nameInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        startGame();
+    }
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.target === nameInput || event.target === speedSelect) {
+        return;
+    }
+    if (event.repeat) {
+        return;
+    }
+
+    if (event.code === "Space") {
+        event.preventDefault();
+        startGame();
+    } else if (event.key === "Escape") {
+        endGame();
+    } else {
+        const hole = findHole(event.key.toLowerCase());
+        if (hole !== null) {
+            bop(hole);
+        }
+    }
+});
